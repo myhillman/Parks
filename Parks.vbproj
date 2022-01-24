@@ -247,6 +247,7 @@
     <None Include="parks.db">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="silos.db" />
     <None Include="SOTA.db">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

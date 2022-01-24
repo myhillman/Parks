@@ -6631,7 +6631,7 @@ Skip:
         Dim resp As Byte(), responseStr As String
         Dim silo_code As String, lga_code As Integer
         Dim now As String = DateTime.UtcNow.ToString("O")   ' UTC date/time in ISO 8601 format
-        Dim Jo As JObject
+        Dim Jo As JObject, extent As Envelope
         Dim sqlcmd As SQLiteCommand, SQLdr As SQLiteDataReader, ShireSqlcmd As SQLiteCommand, ShireSqldr As SQLiteDataReader
         Dim ShireID As String, transaction As Boolean = False
 
@@ -6651,9 +6651,8 @@ Skip:
             Dim sr = New SpatialReference(CInt(Jo.Item("spatialReference")("latestWkid"))) ' datum used for the extent
             Dim p1 As New MapPoint(Jo.Item("fullExtent")("xmin"), Jo.Item("fullExtent")("ymin"), sr)    ' one corner of extent
             Dim p2 As New MapPoint(Jo.Item("fullExtent")("xmax"), Jo.Item("fullExtent")("ymax"), sr)    ' one corner of extent
-            Dim extent As New Envelope(p1, p2)          ' envelope for Australia
+            extent = New Envelope(p1, p2)          ' envelope for Australia
             extent = GeometryEngine.Project(extent, SpatialReferences.Wgs84)    ' the extent of Australia
-
             myWebClient.Headers.Add("accept", "text/html, Application / xhtml + Xml, Application / Xml;q=0.9, Image / avif, Image / webp, Image / apng,*/*;q=0.8, Application / signed - exchange;v=b3;q=0.9")
             sqlWriter.WriteLine("-- Creating LGA updates")
             connect.Open()
